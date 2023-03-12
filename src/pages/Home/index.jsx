@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { api } from "../../services/api";
 
 import { FiPlus, FiSearch } from "react-icons/fi";
@@ -18,8 +20,14 @@ export function Home() {
   const [search, setSearch] = useState("");
   const [tagsSelected, setTagsSelected] = useState([]);
 
+  const navigate = useNavigate();
+
   function handleTagSelected(tagName) {
     const alreadySelected = tagsSelected.includes(tagName);
+
+    if (tagName === "all") {
+      return setTagsSelected([]);
+    }
 
     if (alreadySelected) {
       const filterSelectTag = tagsSelected.filter((tag) => tag !== tagName);
@@ -27,6 +35,10 @@ export function Home() {
     } else {
       setTagsSelected((prevState) => [...prevState, tagName]);
     }
+  }
+
+  function handleDetails(id) {
+    navigate(`/details/${id}`);
   }
 
   useEffect(() => {
@@ -88,7 +100,11 @@ export function Home() {
       <Content>
         <Section>
           {notes.map((note) => (
-            <Nota key={note.id} data={note} />
+            <Nota
+              key={note.id}
+              data={note}
+              onClick={() => handleDetails(note.id)}
+            />
           ))}
         </Section>
       </Content>
