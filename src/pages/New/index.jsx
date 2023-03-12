@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 
 import { api } from "../../services/api";
-import { useNavigate } from "react-router-dom";
 
 import { Textarea } from "../../components/Textarea";
 import { NewItem } from "../../components/NewItem";
@@ -13,6 +12,7 @@ import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 
 import { Container, Form } from "./styles";
+import { ButtonText } from "../../components/ButtonText";
 
 export function New() {
   const [title, setTitle] = useState("");
@@ -72,6 +72,10 @@ export function New() {
     navigate("/");
   }
 
+  function handleBack() {
+    navigate(-1);
+  }
+
   return (
     <Container>
       <Header />
@@ -80,7 +84,7 @@ export function New() {
         <Form>
           <header>
             <h1>Criar Nota</h1>
-            <Link to="/"> Voltar</Link>
+            <ButtonText title={"Voltar"} onClick={handleBack} />
           </header>
 
           <Input

@@ -25,8 +25,12 @@ export function Details() {
 
     if (confirm) {
       await api.delete(`/notes/${params.id}`);
-      navigate("/");
+      navigate(-1);
     }
+  }
+
+  function handleBack() {
+    navigate(-1);
   }
 
   useEffect(() => {
@@ -70,9 +74,7 @@ export function Details() {
             </Section>
           )}
 
-          <Link to="/">
-            <Button title="Voltar" />
-          </Link>
+          <Button title="Voltar" onClick={handleBack} />
         </Content>
       </main>
     </Container>
